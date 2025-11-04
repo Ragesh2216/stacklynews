@@ -1,29 +1,28 @@
-import { useEffect, useState } from "react";
-import NewsItems from "./NewsItems";
+import React from 'react';
+import { Link } from 'react-router-dom';
+// import './NotFound.css'; // Don't forget to import your styles
+
 const Latest = () => {
-  const [articles, setArticles] = useState([]);
-
-  useEffect(() => {
-
-    let url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${import.meta.env.VITE_API_KEY}`;
-    fetch(url)
-      .then(response => response.json())
-      .then(data => setArticles(data.articles));
-  }, []);
-
   return (
-    <div className="text-center">
-      <h2>
-        <span className="badge bg-danger">Latest News</span>
-      </h2>
-      {articles.map((news,index)=>{
-        return <NewsItems key={index} 
-        title={news.title}
-        description={news.description}
-        src={news.src}
-        url={news.url}
-        />
-      })}
+    <div className="not-found-container">
+      <div className="not-found-content">
+        <h1 className="not-found-code">404</h1>
+        <h2 className="not-found-title">Oops! Page Not Found</h2>
+        
+        <p className="not-found-message">
+          The news article or page you are looking for might have been removed,
+          had its name changed, or is temporarily unavailable.
+        </p>
+
+        <p className="not-found-suggestion">
+          Don't worry, let's get you back on track.
+        </p>
+        
+        {/* Link back to the home page */}
+        <Link to="/" className="not-found-link">
+          Go to STACKLY Home
+        </Link>
+      </div>
     </div>
   );
 };

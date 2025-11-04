@@ -1,56 +1,86 @@
+import React, { useState } from 'react';
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
-import Home from "./RouterDOm/Home";
-import About from "./RouterDOm/About";
-import Contact from "./RouterDOm/Contact";
-import Service from "./RouterDOm/Service";
-import Latest from"./RouterDOm/Latest";
-import Lifestyle from "./RouterDOm/Lifestyle";
-import Education from "./RouterDOm/Education";
-import Business from "./RouterDOm/Business";
-import World from "./RouterDOm/World";
+// Corrected import paths: assuming the directory should be 'RouterDom' (lowercase 'm')
+import Home from "./RouterDom/Home"; 
+import About from "./RouterDom/About.jsx";
+import Contact from "./RouterDom/Contact";
+import Service from "./RouterDom/Service";
+import Latest from"./RouterDom/Latest";
+import Lifestyle from "./RouterDom/Lifestyle";
+import Education from "./RouterDom/Education";
+import Business from "./RouterDom/Business";
+import World from "./RouterDom/World";
+import Login from "./RouterDom/Login";
+import Footer from"./RouterDom/Footer";
 
+export default function App() { 
+  // 3. DEFINE STATE FOR MENU TOGGLE
+  const [isOpen, setIsOpen] = useState(false);
 
-export default function App() {
- return (
-      <div>
+  // 4. DEFINE THE TOGGLE FUNCTION
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
+  return (
+    <div>
+      {/* WRAPPER FOR NAVIGATION ELEMENTS */}
+      <BrowserRouter> 
+        
+        {/* === HEADER (Appears on EVERY page) === */}
         <div className="titlebar">
-          <h2>STACKLY NEWS</h2>
+          <h2>STACKLY </h2>
         </div>
-      <BrowserRouter>
-        <div className="menu">
-          <Link to="">Home</Link>
-          <Link to="/Latest">LATEST</Link>
-          <Link to="/Lifestyle">Lifestyle</Link>
-          <Link to="/Education">Education</Link>
-          <Link to="/World">World</Link>
-          <Link to="/Business">Business</Link>
+        
+        <div className="menu-container"> 
           
-          <Link to="/About">About</Link>
-          <Link to="/Contact">Contact</Link>
-          <Link to="/Service">Service</Link>
+          {/* HAMBURGER TOGGLE BUTTON */}
+          <button className="menu-toggle" onClick={toggleMenu}>
+            {isOpen ? '✕' : '☰'} 
+          </button>
+          
+          {/* NAVIGATION LINKS - CLASS IS CONDITIONAL */}
+          <div className={`menu ${isOpen ? 'open' : ''}`}>
+            {/* All links call toggleMenu to close the menu upon navigation */}
+            <Link to="/" onClick={toggleMenu}>Home</Link>
+            <Link to="/Latest" onClick={toggleMenu}>LATEST</Link>
+            <Link to="/Lifestyle" onClick={toggleMenu}>Lifestyle</Link>
+            <Link to="/Education" onClick={toggleMenu}>Education</Link>
+            <Link to="/World" onClick={toggleMenu}>World</Link>
+            <Link to="/Business" onClick={toggleMenu}>Business</Link>
+            <Link to="/About" onClick={toggleMenu}>About</Link>
+            <Link to="/Contact" onClick={toggleMenu}>Contact</Link>
+            <Link to="/Service" onClick={toggleMenu}>Service</Link>
+            <Link to="/Login" onClick={toggleMenu}>Login</Link>
+          </div>
         </div>
-        <Routes>
-          <Route path="" element={<Home />} />
-           <Route path="/Latest" element={<Latest />} />
-            <Route path="/Lifestyle" element={<Lifestyle/>} />
-            <Route path="/Education" element={<Education />} />
-             <Route path="/World" element={<World />} />
-             <Route path="/Business" element={<Business />} />
 
-          <Route path="/About" element={<About />} />
-          <Route path="/Contact" element={<Contact />} />
-          <Route path="/Service" element={<Service />}/>
-            
-          
-          
-        </Routes>
+        {/* === MAIN CONTENT (Content Changes) === */}
+        <div className="main-content-wrapper">
+            <Routes>
+              {/* Corrected path names used for element prop */}
+              <Route path="/" element={<Home />} />
+              <Route path="/Latest" element={<Latest />} />
+              <Route path="/Lifestyle" element={<Lifestyle/>} />
+              <Route path="/Education" element={<Education />} />
+              <Route path="/World" element={<World />} />
+              <Route path="/Business" element={<Business />} />
+              <Route path="/About" element={<About />} />
+              <Route path="/Contact" element={<Contact />} />
+              <Route path="/Service" element={<Service />}/>
+              <Route path="/Login" element={<Login />}/>
+              
+             
+            </Routes>
+        </div>
+
+    
+        <Footer />
+        
       </BrowserRouter>
 
-
-
-      <footer>
-          <p>&copy; {new Date().getFullYear()} STACKLY NEWS. All rights reserved.</p>
-        </footer>
+      {/* Removed old redundant <footer> tag here */}
+      
     </div>
   );
 }

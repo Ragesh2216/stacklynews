@@ -1177,3 +1177,167 @@ h1, h2, h3 {
 .about-sections-table tbody tr:last-child td {
   border-bottom: none;
 }
+
+
+
+.menu a {
+  /* ... (Existing styles) ... */
+  
+  /* Add a smooth transition to the transform property */
+  transition: color 0.3s ease-in-out; 
+}
+
+/* 1. Create the invisible underline */
+.menu a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px; /* Thickness of the underline */
+  background-color: #00bcd4; /* A bright color */
+  
+  /* Start the underline at zero width (invisible) */
+  transform: scaleX(0); 
+  transform-origin: left; /* Make it expand from the left edge */
+  
+  /* Apply the animation timing to the transform property */
+  transition: transform 0.3s ease-out;
+}
+
+/* 2. Animate on Hover */
+.menu a:hover {
+  color: #00bcd4; /* Change text color for extra effect */
+}
+
+.menu a:hover::after {
+  /* Expand the underline to full width (100%) on hover */
+  transform: scaleX(1); 
+}
+
+@media (max-width: 768px) {
+  
+  .menu-container {
+    /* Change flex behavior for mobile: push logo/title to left, button to right */
+    justify-content: space-between; 
+    /* Ensure the container is positioned relatively for the absolute menu dropdown */
+    position: relative; 
+  }
+
+  /* Show and style the Hamburger Button (☰) */
+  .menu-toggle {
+    display: block; /* Show the button */
+    background: none;
+    border: none;
+    color: white; /* Color of the icon */
+    font-size: 30px;
+    cursor: pointer;
+    padding: 8px 15px;
+  }
+
+  /* Hide the actual menu links by default */
+  .menu {
+    display: none; /* Crucial: Hides the links until the button is clicked */
+    flex-direction: column; /* Stack links vertically */
+    
+    /* Position the menu to drop down from the header */
+    position: absolute; 
+    top: 100%; /* Place it right below the header */
+    left: 0;
+    width: 100%; /* Make the dropdown full width */
+    background-color: #444; /* Slightly different background for the dropdown */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+  }
+  
+  /* Full-width links within the dropdown */
+  .menu a {
+    width: 100%; 
+    padding: 12px 20px; /* Increase vertical padding for easy tapping */
+    border-bottom: 1px solid #555;
+  }
+  
+  /* Class to be added by JavaScript/React when the menu is toggled OPEN */
+  .menu.open {
+    display: flex; /* Overrides 'display: none' to show the menu */
+  }
+}
+/* --- 1. Container and Layout --- */
+
+.not-found-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Ensure it fills the screen height, accounting for header/footer if needed */
+  min-height: calc(100vh - 100px); 
+  text-align: center;
+  background-color: #f8f9fa; /* Light background */
+  padding: 40px 20px;
+}
+
+.not-found-content {
+  max-width: 600px;
+  background: white;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  /* Optional: Simple fade-in animation */
+  animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- 2. Typography and Elements --- */
+
+.not-found-code {
+  font-size: 6rem; /* Large, bold error code */
+  font-weight: 800;
+  color: #dc3545; /* Error red */
+  margin-bottom: 0;
+  /* Add a smooth transition/animation */
+  animation: pulse 2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+    100% { transform: scale(1); }
+}
+
+.not-found-title {
+  font-size: 2rem;
+  color: #333;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.not-found-message,
+.not-found-suggestion {
+  font-size: 1.1rem;
+  color: #6c757d;
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+
+/* --- 3. Action Link --- */
+
+.not-found-link {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 25px;
+  background-color: #007bff; /* Primary brand color */
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.not-found-link:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}

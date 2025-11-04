@@ -1,62 +1,30 @@
-import React from "react";
-import { Link } from "react-router-dom";
-export default function Education() {
- const services = [
-    {
-      title: "Advertising & Brand Partnerships",
-      icon: "fa-bullhorn", // Replace with an actual icon component or image
-      description: "Connect your brand with our highly engaged and influential readership. We offer bespoke native content creation, sponsored sections, and high-impact digital advertising across our platforms.",
-      detailsLink: "/advertise",
-      buttonText: "View Media Kit"
-    },
-    {
-      title: "Content Licensing & Syndication",
-      icon: "fa-sitemap",
-      description: "License our world-class, award-winning journalism for use on your corporate website, internal newsletters, or in educational materials. Access our archives and new content feeds.",
-      detailsLink: "/licensing",
-      buttonText: "Inquire About Licensing"
-    },
-    {
-      title: "Custom Research & Data Services",
-      icon: "fa-chart-line",
-      description: "Leverage our proprietary survey data, investigative resources, and expert analysts for in-depth reports tailored to your industry. Ideal for financial firms and policymakers.",
-      detailsLink: "/data-services",
-      buttonText: "Request a Consultation"
-    },
-    {
-      title: "Events, Webinars & Speaking",
-      icon: "fa-calendar-alt",
-      description: "Sponsor or co-host major industry conferences, executive briefings, or webinars. Our journalists are available for keynote speaking engagements and expert panels.",
-      detailsLink: "/events",
-      buttonText: "Explore Opportunities"
-    },
-  ];
+import React from 'react';
+import { Link } from 'react-router-dom';
+// import './NotFound.css'; // Don't forget to import your styles
 
+const Education = () => {
   return (
-    <div className="services-container">
-      <header className="services-header">
-        <h1>Partnerships & Professional Services</h1>
-        <p>Beyond breaking news, we offer specialized services to help businesses, educators, and organizations thrive with our content and audience.</p>
-      </header>
-      
-      <div className="services-grid">
-        {services.map((service, index) => (
-          <div className="service-card" key={index}>
-            <i className={`fas ${service.icon} service-icon`}></i>
-            <h2 className="card-title">{service.title}</h2>
-            <p className="card-description">{service.description}</p>
-            <a href={service.detailsLink} className="card-button">
-              {service.buttonText}
-            </a>
-          </div>
-        ))}
-      </div>
+    <div className="not-found-container">
+      <div className="not-found-content">
+        <h1 className="not-found-code">404</h1>
+        <h2 className="not-found-title">Oops! Page Not Found</h2>
+        
+        <p className="not-found-message">
+          The news article or page you are looking for might have been removed,
+          had its name changed, or is temporarily unavailable.
+        </p>
 
-      <section className="cta-section">
-        <h2>Ready to Partner?</h2>
-        <p>If you have a unique request or need, contact our business development team directly.</p>
-        <a href="/contact-business" className="primary-cta-button">Contact Business Inquiries</a>
-      </section>
+        <p className="not-found-suggestion">
+          Don't worry, let's get you back on track.
+        </p>
+        
+        {/* Link back to the home page */}
+        <Link to="/" className="not-found-link">
+          Go to STACKLY Home
+        </Link>
+      </div>
     </div>
   );
 };
+
+export default Education;

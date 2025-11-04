@@ -1,41 +1,67 @@
-/* --- Auth Page Container and Card Layout --- */
+/* --- 1. Layout and Container --- */
+
 .auth-container {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #f0f2f5; /* Light, neutral background */
   padding: 20px;
-  font-family: 'Helvetica Neue', Arial, sans-serif;
+  background-color: #f0f2f5;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden; /* Important for animations involving overflow */
 }
 
 .auth-card {
-  background-color: #ffffff;
+  background: white;
   padding: 40px;
   border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 400px; /* Keep the form focused and centralized */
+  max-width: 420px;
   text-align: center;
+  position: relative; /* Needed for any absolute positioning or scaling animations */
+  overflow: hidden; /* Ensures elements don't spill during animations */
+  
+  /* Initial animation for the card itself */
+  animation: fadeInScaleUp 0.6s ease-out forwards;
 }
 
+/* Keyframe for initial card load */
+@keyframes fadeInScaleUp {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* --- 2. Typography and Headers --- */
+
 .auth-title {
-  font-size: 2em;
-  color: #1a1a1a;
+  color: #333;
   margin-bottom: 10px;
+  font-size: 1.8rem;
+  font-weight: 600;
+  transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out; /* Smooth text changes */
 }
 
 .auth-value-prop {
-  font-size: 1em;
-  color: #555;
-  margin-bottom: 30px;
+  color: #666;
+  margin-bottom: 25px;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out; /* Smooth text changes */
 }
 
-/* --- Social Login Buttons --- */
+/* --- 3. Social Login Buttons --- */
+
 .social-login {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 10px;
   margin-bottom: 20px;
 }
 
@@ -43,162 +69,226 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
   padding: 12px;
-  border-radius: 6px;
-  font-weight: bold;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 0.9rem;
   cursor: pointer;
-  transition: background-color 0.2s;
-  border: 1px solid #ddd;
+  background-color: white; /* Ensure consistent background for hover */
+  color: #555; /* Default color if not specified by specific classes */
+  transition: background-color 0.3s, border-color 0.3s, transform 0.2s ease-out, box-shadow 0.2s ease-out;
 }
 
+.social-button:hover {
+  transform: translateY(-2px); /* Slight lift */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow on hover */
+}
+
+/* Font Awesome icon styling */
 .social-button i {
   margin-right: 10px;
-  font-size: 1.1em;
+  font-size: 1.1rem;
 }
 
-.google {
-  background-color: #ffffff;
-  color: #4285f4;
+.social-button.google {
+  color: #4285F4;
+  border-color: #4285F4;
+}
+.social-button.google:hover {
+  background-color: #e6f0ff; /* Light blue on hover */
 }
 
-.google:hover {
-  background-color: #f5f5f5;
+.social-button.facebook {
+  color: #3b5998;
+  border-color: #3b5998;
+}
+.social-button.facebook:hover {
+  background-color: #e8f0ff; /* Light blue on hover */
 }
 
-.facebook {
-  background-color: #1877f2;
-  color: #ffffff;
-  border-color: #1877f2;
-}
 
-.facebook:hover {
-  background-color: #145dbf;
-}
+/* --- 4. Separator (`OR`) --- */
 
-/* --- Divider Style --- */
 .divider {
+  display: flex;
+  align-items: center;
   text-align: center;
   color: #aaa;
+  font-size: 0.8rem;
   margin: 20px 0;
-  font-size: 0.9em;
-  position: relative;
+  opacity: 1;
+  transition: opacity 0.5s ease;
 }
 
-.divider::before,
-.divider::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  width: 40%;
-  height: 1px;
-  background: #eee;
-}
 
-.divider::before {
-  left: 0;
-}
+/* --- 5. Form Elements --- */
 
-.divider::after {
-  right: 0;
-}
-
-/* --- Form Styles --- */
 .auth-form {
-  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  /* Add an id to the form for better targeting of children animations if needed */
 }
 
 .form-group {
-  margin-bottom: 15px;
+  text-align: left;
+  /* Animating form groups directly for appear/disappear */
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
 }
+
+/* Animation for entering elements (e.g., name and terms on register) */
+.form-group.enter {
+  animation: fadeInSlideUp 0.4s ease-out forwards;
+}
+/* Animation for exiting elements */
+.form-group.exit {
+  animation: fadeOutSlideDown 0.3s ease-in forwards;
+  position: absolute; /* Prevent layout shift during exit */
+  width: calc(100% - 80px); /* Match auth-card inner width */
+  left: 40px; /* Match auth-card inner padding */
+  pointer-events: none; /* Disable interaction during exit */
+}
+
+
+@keyframes fadeInSlideUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeOutSlideDown {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(10px); }
+}
+
 
 .form-group label {
   display: block;
-  font-weight: bold;
+  font-weight: 500;
   margin-bottom: 5px;
-  color: #333;
+  color: #555;
+  font-size: 0.9rem;
 }
 
-.form-group input[type="text"],
-.form-group input[type="email"],
-.form-group input[type="password"] {
+.auth-form input[type="text"],
+.auth-form input[type="email"],
+.auth-form input[type="password"] {
   width: 100%;
   padding: 12px;
   border: 1px solid #ddd;
   border-radius: 6px;
-  box-sizing: border-box; /* Important for consistent padding */
-  font-size: 1em;
+  box-sizing: border-box;
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-.form-group input:focus {
-  border-color: #004d99; /* News primary color on focus */
+.auth-form input:focus {
+  border-color: #007bff;
   outline: none;
-}
-
-/* Checkbox specific styles */
-.checkbox-group {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 0.9em;
-}
-
-.checkbox-group label {
-  font-weight: normal;
-}
-
-.checkbox-group a {
-  color: #004d99;
-  text-decoration: none;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
 }
 
 /* Submit Button */
 .submit-button {
   width: 100%;
   padding: 12px;
-  background-color: #004d99;
+  background-color: #007bff;
   color: white;
   border: none;
-  border-radius: 6px;
-  font-size: 1.1em;
-  font-weight: bold;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
   margin-top: 10px;
-  transition: background-color 0.2s;
+  transition: background-color 0.3s ease, transform 0.2s ease-out, box-shadow 0.2s ease-out;
 }
 
 .submit-button:hover {
-  background-color: #003366;
+  background-color: #0056b3;
+  transform: translateY(-2px); /* Slight lift */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.submit-button:active {
+  transform: translateY(0); /* Press effect */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* Forgot Password Link */
+/* Forgot Password */
 .forgot-password {
-  text-align: center;
-  margin-top: 15px;
-  font-size: 0.9em;
+  text-align: right;
+  font-size: 0.85rem;
+  margin-top: -5px;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
 .forgot-password a {
-  color: #004d99;
+  color: #007bff;
   text-decoration: none;
 }
 
-/* Toggle Link (Login/Register switch) */
+.forgot-password a:hover {
+  text-decoration: underline;
+}
+
+/* --- 6. Terms Checkbox Group --- */
+
+.checkbox-group {
+  display: flex;
+  align-items: center;
+}
+
+.checkbox-group input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.checkbox-group label {
+  font-weight: normal;
+  font-size: 0.85rem;
+  display: inline;
+}
+
+.checkbox-group a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.checkbox-group a:hover {
+  text-decoration: underline;
+}
+
+/* --- 7. Toggle Link (Login <-> Register) --- */
+
 .auth-toggle {
-  text-align: center;
-  margin-top: 25px;
-  padding-top: 15px;
-  border-top: 1px solid #eee;
-  font-size: 1em;
-  color: #555;
+  margin-top: 30px;
+  font-size: 0.9rem;
+  color: #666;
 }
 
 .auth-toggle span {
-  color: #ff6600; /* Accent color for the link */
-  font-weight: bold;
+  color: #007bff;
+  font-weight: 600;
   cursor: pointer;
-  transition: color 0.2s;
+  transition: color 0.3s;
 }
 
 .auth-toggle span:hover {
-  color: #cc5200;
+  color: #0056b3;
+}
+
+/* --- Media Queries for responsiveness (optional, but good practice) --- */
+@media (max-width: 600px) {
+  .auth-card {
+    padding: 30px 20px;
+  }
+  .auth-title {
+    font-size: 1.5rem;
+  }
+  .auth-value-prop {
+    font-size: 0.9rem;
+  }
+}
+@media (max-width: 600px) {
+  .auth-card {
+    width: 90%;
+    padding: 1.5rem;
+  }
 }
