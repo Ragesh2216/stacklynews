@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
-// Corrected import paths: assuming the directory should be 'RouterDom' (lowercase 'm')
-import Home from "./RouterDom/Home"; 
+
+import Home from "./RouterDom/Home.jsx"; 
 import About from "./RouterDom/About.jsx";
-import Contact from "./RouterDom/Contact";
-import Service from "./RouterDom/Service";
-import Latest from"./RouterDom/Latest";
-import Lifestyle from "./RouterDom/Lifestyle";
-import Education from "./RouterDom/Education";
-import Business from "./RouterDom/Business";
-import World from "./RouterDom/World";
-import Login from "./RouterDom/Login";
-import Footer from"./RouterDom/Footer";
+import Contact from "./RouterDom/Contact.jsx";
+import Service from "./RouterDom/Service.jsx";
+import Latest from"./RouterDom/Latest.jsx";
+import Lifestyle from "./RouterDom/Lifestyle.jsx";
+import Education from "./RouterDom/Education.jsx";
+import Business from "./RouterDom/Business.jsx";
+import World from "./RouterDom/World.jsx";
+import Login from "./RouterDom/Login.jsx";
+import Footer from"./RouterDom/Footer.jsx";
 
 export default function App() { 
   // 3. DEFINE STATE FOR MENU TOGGLE
